@@ -15,8 +15,8 @@ const client = net.connect(PIPE_PATH, () => {
 
 client.on('data', (data) => {
   console.log(data.toString())
-  // console.log('Client: on data:', data.toString());
-  // console.log('========================================')
+  // const buf = Buffer.from("This is data from ben");
+  // client.write(buf)
   // client.end('Hi Server (sent from client)');
 });
 
