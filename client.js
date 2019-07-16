@@ -1,31 +1,29 @@
 const net = require('net');
 
-const PIPE_NAME = "Jarvis_Communication_Pipe";
+// const PIPE_NAME = "Jarvis_Communication_Pipe";
+const PIPE_NAME = "Pipe.Server";
 const PIPE_PATH = "\\\\.\\pipe\\" + PIPE_NAME;
 
 // == Client part == //
 const client = net.connect(PIPE_PATH, () => {
-  console.log('Client connected');
-}).on('error', err => {
+  console.log('Client connected.');
+});
+
+client.on('error', err => {
   if (err) {
-    console.log('Can not connect!')
+    console.log(err)
   }
 })
 
-
 client.on('data', (data) => {
-  console.log(data.toString())
-  // const buf = Buffer.from("This is data from ben");
-  // client.write(buf)
-  // client.end('Hi Server (sent from client)');
+  console.log('Default Data: ', data)
+  console.log('Convert to string: ', data.toString())
+
+  // Response to server
+  const buf = Buffer.from("This is data from ben.");
+  client.write(buf)
 });
 
-// client.on('error', err => {
-//   if (err) {
-//     console.log('can not connect!')
-//   }
-// })
-
-// client.on('end', () => {
-//   console.log('Client: on end');
-// })
+client.on('end', () => {
+  console.log('Client disconnected.');
+})
