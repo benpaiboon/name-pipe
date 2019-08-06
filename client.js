@@ -1,12 +1,15 @@
 const net = require('net');
 
 // const PIPE_NAME = "Jarvis_Communication_Pipe";
-const PIPE_NAME = "Pipe.Server";
+// const PIPE_NAME = "Pipe.Server";
+const PIPE_NAME = "decideelectron";
 const PIPE_PATH = "\\\\.\\pipe\\" + PIPE_NAME;
 
 // == Client part == //
 const client = net.connect(PIPE_PATH, () => {
   console.log('Client connected.');
+  const testBuf = Buffer.from("ben connected");
+  client.write(testBuf);
 });
 
 client.on('error', err => {
